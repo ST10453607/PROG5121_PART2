@@ -10,7 +10,6 @@ public class ChatAppPOE {
 
     // ================= PASSWORD METHOD =================
     public static boolean checkPassword(String password) {
-
         boolean hasCapital = false;
         boolean hasNumber = false;
         boolean hasSpecial = false;
@@ -63,12 +62,15 @@ public class ChatAppPOE {
         // MAIN LOOP CONTROL
         boolean running = true;
 
+        Message.loadTestData();
+
         while (running) {
 
             // ================= MAIN MENU =================
             System.out.println("\n1. Register");
             System.out.println("2. Login");
-            System.out.println("3. Exit");
+            System.out.println("3. Stored Messages");
+            System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
 
             int option = scanner.nextInt();
@@ -175,26 +177,122 @@ public class ChatAppPOE {
                     String recipient = scanner.nextLine();
                     System.out.print("Enter your message. ");
                     String message = scanner.nextLine();
-                    Message msg = new Message(recipient,message);
+                    Message msg = new Message(recipient, message);
                     String result = msg.sentMessage();
                     System.out.println(result);
                 } else {
                     System.out.println("Username or password incorrect, please try again.");
                 }
             }
-
-            // ================= EXIT =================
+            // Stored Messages
             else if (option == 3) {
-                System.out.println("Goodbye!");
-                running = false;
+                Message.readStoredMessages();
+                System.out.println("\na. Display sender + recipient of all stored messages");
+                System.out.println("b. Display longest stored message");
+                System.out.println("c. Search by message ID");
+                System.out.println("d. Search all messages for particular recipient");
+                System.out.println("e. Delete a message using message hash");
+                System.out.println("f. Display a report of all stored messages");
+                System.out.print("Enter your choice: ");
+                String subChoice = scanner.nextLine();
+
+                if (subChoice.equals("a")) {
+                    ArrayList<String> storedMessages = Message.getStoredMessages();
+                    ArrayList<String> recipients = Message.getRecipients();
+                    for (int i = 0; i < storedMessages.size(); i++) {
+                        System.out.println("Recipient: " + recipients.get(i));
+                        System.out.println("Message: " + storedMessages.get(i));
+                        System.out.println();
+                    }
+                }
+                if (subChoice.equals("b")) {
+                    ArrayList<String> storedMessages = Message.getStoredMessages();
+                    int longestIndex = 0;
+                    for (int i = 0; i < storedMessages.size(); i++) {
+                        if (storedMessages.get(i).length() > storedMessages.get(longestIndex).length()) {
+                            longestIndex = i;
+                        }
+                    }
+                    System.out.println("Longest message: " + storedMessages.get(longestIndex));
+
+
+                } else if (subChoice.equals("c")) {
+                    System.out.println("Enter message ID");
+                    String searchID = scanner.nextLine();
+                    ArrayList<String> messageIDs = Message.getMessageIDs();
+                    ArrayList<String> storedMessages = Message.getStoredMessages();
+                    ArrayList<String> recipients = Message.getRecipients();
+                    boolean found = false;
+                    for (int i = 0; i < messageIDs.size(); i++) {
+                        if (messageIDs.get(i).equals(searchID)) {
+                            System.out.println("Recipient: " + recipients.get(i));
+                            System.out.println("Message: " + storedMessages.get(i));
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        System.out.println("Message ID does not exist");
+                    }
+
+                } else if (subChoice.equals("d")) {
+                    System.out.println("Enter recipient number");
+                    ArrayList<String> recipients = Message.getRecipients();
+                    ArrayList<String> storedMessages = Message.getStoredMessages();
+                    String searchID = scanner.nextLine();
+                    boolean found = false;
+                    for (int i = 0; i < recipients.size(); i++) {
+                        if (recipients.get(i).equals(searchID)) {
+                            System.out.println("Message: " + storedMessages.get(i));
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        System.out.println("No messages for that recipient.");
+                    }
+                } else if (subChoice.equals("e")) {
+                    System.out.println("Enter message hash");
+                    String searchHash = scanner.nextLine();
+                    ArrayList<String> messageHashes = Message.getMessageHashes();
+                    ArrayList<String> storedMessages = Message.getStoredMessages();
+                    ArrayList<String> messageIDs = Message.getMessageIDs();
+                    ArrayList<String> recipients = Message.getRecipients();
+                    int index = messageHashes.indexOf(searchHash);
+                    if (index != -1) {
+                        messageHashes.remove(index);
+                        storedMessages.remove(index);
+                        recipients.remove(index);
+                        messageIDs.remove(index);
+                        System.out.println("Message hash deleted");
+                    } else {
+                        System.out.println("Message hash does not exist");
+                    }
+
+                } else if (subChoice.equals("f")) {
+                    ArrayList<String> messageHashes = Message.getMessageHashes();
+                    ArrayList<String> storedMessages = Message.getStoredMessages();
+                    ArrayList<String> recipients = Message.getRecipients();
+                    for (int i = 0; i < storedMessages.size(); i++) {
+                        System.out.println("Message hash: " + messageHashes.get(i));
+                        System.out.println("Message: " + storedMessages.get(i));
+                        System.out.println("Recipient:  " + recipients.get(i));
+                        System.out.println();
+                    }
+                }
             }
 
-            // ================= INVALID =================
-            else {
-                System.out.println("Invalid option");
+                // ================= EXIT =================
+                else if (option == 4) {
+                    System.out.println("Goodbye!");
+                    running = false;
+                }
+
+                // ================= INVALID =================
+                else {
+                    System.out.println("Invalid option");
+                }
             }
+
+            scanner.close();
         }
-
-        scanner.close();
     }
-}
