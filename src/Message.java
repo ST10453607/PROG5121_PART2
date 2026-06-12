@@ -22,6 +22,7 @@ public class Message {
     private static ArrayList<String> messageHashes = new ArrayList<>();
     private static ArrayList<String> messageIDs = new ArrayList<>();
     private static ArrayList<String> recipients = new ArrayList<>();
+    private static ArrayList<String> allMessages = new ArrayList<>();
 
     public Message(String recipient, String message) {
         this.message = message;
@@ -75,6 +76,8 @@ public class Message {
     public static ArrayList<String> getRecipients() {
         return recipients;
     }
+
+    public static ArrayList<String> getAllMessages() { return  allMessages; }
 
 
     public boolean checkMessageID() {
@@ -174,6 +177,7 @@ public class Message {
         messageHashes.clear();
         messageIDs.clear();
         recipients.clear();
+        allMessages.clear();
 
         sentMessages.add("Did you get the cake?");
         messageHashes.add("AU:0:DidCake");
@@ -196,5 +200,6 @@ public class Message {
         messageHashes.add("AU:0:OkYou");
         messageIDs.add("1234567893");
         recipients.add("+27838884567");
+        allMessages.add("Did you get the cake?");
     }
 }

@@ -83,11 +83,11 @@ public class ChatAppPOETest {
     public void testSearchMessageID() {
         Message.loadTestData();
         ArrayList<String> messageIDs = Message.getMessageIDs();
-        ArrayList<String> sentMessages = Message.getSentMessages();
+        ArrayList<String> allMessages = Message.getAllMessages();
         String result  = "";
         for (int i = 0; i < messageIDs.size(); i++) {
             if (messageIDs.get(i).equals("1234567892")) {
-                result = sentMessages.get(i);
+                result = allMessages.get(i);
                 break;
 
             }
@@ -128,11 +128,12 @@ public class ChatAppPOETest {
         ArrayList<String> messageHashes = Message.getMessageHashes();
         ArrayList<String> recipients = Message.getRecipients();
         ArrayList<String> storedMessages = Message.getStoredMessages();
+        ArrayList<String> allMessages = Message.getAllMessages();
         assertFalse(storedMessages.isEmpty());
         assertFalse(messageHashes.isEmpty());
         assertFalse(recipients.isEmpty());
-        assertEquals(messageHashes.size(), storedMessages.size());
-        assertEquals(storedMessages.size(), recipients.size());
+        assertEquals(messageHashes.size(), allMessages.size());
+        assertEquals(allMessages.size(), recipients.size());
     }
 
 
