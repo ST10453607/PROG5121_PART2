@@ -168,6 +168,13 @@ public class Message {
         }
     }
     public static void loadTestData() {
+        sentMessages.clear();
+        storedMessages.clear();
+        disregardedMessages.clear();
+        messageHashes.clear();
+        messageIDs.clear();
+        recipients.clear();
+
         sentMessages.add("Did you get the cake?");
         messageHashes.add("AU:0:DidCake");
         messageIDs.add("1234567890");
