@@ -98,7 +98,7 @@ public class ChatAppPOETest {
     public void testSearchRecipient() {
         Message.loadTestData();
         ArrayList<String> recipients = Message.getRecipients();
-        ArrayList<String> allMessages = Message.getStoredMessages();
+        ArrayList<String> allMessages = Message.getAllMessages();
         ArrayList<String> results = new ArrayList<>();
         for (int i = 0; i < recipients.size(); i++) {
             if (recipients.get(i).equals("+27838884567")) {
