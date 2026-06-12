@@ -204,6 +204,6 @@ public class Message {
         messageHashes.add("AU:0:OkYou");
         messageIDs.add("1234567893");
         recipients.add("+27838884567");
-        allMessages.add("Did you get the cake?");
+        allMessages.add("Ok, I am leaving without you.");
     }
 }
