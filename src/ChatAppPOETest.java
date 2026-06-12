@@ -98,11 +98,11 @@ public class ChatAppPOETest {
     public void testSearchRecipient() {
         Message.loadTestData();
         ArrayList<String> recipients = Message.getRecipients();
-        ArrayList<String> storedMessages = Message.getStoredMessages();
+        ArrayList<String> allMessages = Message.getStoredMessages();
         ArrayList<String> results = new ArrayList<>();
         for (int i = 0; i < recipients.size(); i++) {
             if (recipients.get(i).equals("+27838884567")) {
-                results.add(storedMessages.get(i));
+                results.add(allMessages.get(i));
             }
         }
         assertTrue(results.contains("Where are you? You are late! I have asked you to be on time."));
@@ -127,9 +127,8 @@ public class ChatAppPOETest {
         Message.loadTestData();
         ArrayList<String> messageHashes = Message.getMessageHashes();
         ArrayList<String> recipients = Message.getRecipients();
-        ArrayList<String> storedMessages = Message.getStoredMessages();
         ArrayList<String> allMessages = Message.getAllMessages();
-        assertFalse(storedMessages.isEmpty());
+        assertFalse(allMessages.isEmpty());
         assertFalse(messageHashes.isEmpty());
         assertFalse(recipients.isEmpty());
         assertEquals(messageHashes.size(), allMessages.size());

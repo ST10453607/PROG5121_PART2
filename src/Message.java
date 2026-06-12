@@ -183,11 +183,14 @@ public class Message {
         messageHashes.add("AU:0:DidCake");
         messageIDs.add("1234567890");
         recipients.add("+27834557896");
+        allMessages.add("Did you get the cake?");
 
         storedMessages.add("Where are you? You are late! I have asked you to be on time.");
         messageHashes.add("AU:0:WhereTime");
         messageIDs.add("1234567891");
         recipients.add("+27838884567");
+        allMessages.add("Where are you? You are late! I have asked you to be on time.");
+
 
         disregardedMessages.add("Yohoooo, I am at your gate.");
 
@@ -195,6 +198,7 @@ public class Message {
         messageHashes.add("AU:0:ItTime");
         messageIDs.add("1234567892");
         recipients.add("+27838884567");
+        allMessages.add("It is dinner time!");
 
         storedMessages.add("Ok, I am leaving without you.");
         messageHashes.add("AU:0:OkYou");
